@@ -4,6 +4,8 @@ Exercises made for the Computer Networks exam.
 
 In the `exercises` folder you can find all the lab lessons with the marionnet project, a file containing just the sequence of commands to execute to replicate what was done in class, and *maybe* a file with more detailed explanation about the theory behind it. 
 
+In the `workbook` folder you can find additional exercises provided by the professor that I made to practice.
+
 ## How to use
 
 ### If you use mydesk virtual lab
