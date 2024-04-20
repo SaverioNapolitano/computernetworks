@@ -3,3 +3,4 @@
 - dhcp: workbook
 - traffic shaping: workbook
 - subnetting/supernetting: workbook
+- challenges
