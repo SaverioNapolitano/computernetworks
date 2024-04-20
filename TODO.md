@@ -1,4 +1,3 @@
--  workbook/vlan: md
 - routing: workbook
 - dhcp: workbook
 - traffic shaping: workbook
