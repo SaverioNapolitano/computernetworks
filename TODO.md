@@ -1,2 +1,5 @@
 -  workbook/vlan: md
-- routing: exercises + workbook (2024-04-09)
+- routing: workbook
+- dhcp: workbook
+- traffic shaping: workbook
+- subnetting/supernetting: workbook
