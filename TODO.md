@@ -1,5 +1,4 @@
-- routing: workbook
-- dhcp: workbook
-- traffic shaping: workbook
-- subnetting/supernetting: workbook
-- challenges
+- [ ] routing: workbook
+- [ ] dhcp: workbook
+- [ ] traffic shaping: workbook
+- [ ] challenges
