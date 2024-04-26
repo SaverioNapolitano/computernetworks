@@ -1,14 +1,44 @@
 # Commands
 
+
+## Miscellaneous
+
+| comando                                                                             | funzione                                                             | opzioni                                                                                                                                  |
+| ----------------------------------------------------------------------------------- | -------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `tar`                                                                               | `tape archive`                                                       | `x`: scompatta il file (`extract`)<br>`z`: comprime il file usando `gzip` (`compress`)<br>`v`: `verbose`<br>`c`: crea il file (`create`) |
+| `md5sum`                                                                            | calcola l'hash                                                       |                                                                                                                                          |
+| `time <command>`                                                                    | misura il tempo di esecuzione di un comando (`command`)              |                                                                                                                                          |
+| `dd if={/dev/zero, /dev/urandom} of=<filename>.<ext> bs=<block-size> count=<count>` | crea un file `<filename>.<ext>` di dimensione `<block-size>*<count>` |                                                                                                                                          |
+| `make <exe>`                                                                        | crea l'eseguibile `<exe>` a partire da un file `<exe>.c`             |                                                                                                                                          |
+| `chmod a+x <file>`                                                                  | rende il file `<file>` eseguibile                                    |                                                                                                                                          |
+
 ## Tool livello trasporto
 
 | comando                           | funzione                                                                                                          | opzioni                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | --------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `tar`                             | `tape archive`                                                                                                    | `x`: scompatta il file (`extract`)<br>`z`: comprime il file usando `gzip` (`compress`)<br>`v`: `verbose`<br>`c`: crea il file (`create`)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| `md5sum`                          | calcola l'hash                                                                                                    |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | `nc`                              | `netcat`                                                                                                          | `-c "<command>"`: esegue un comando (`<command>`) all'apertura della connessione (anche in modalità server)<br>`-l`: server in attesa di richieste di connessione<br>`-p`: porta su cui il server si mette in ascolto<br>`-u`: utilizza protocollo UDP al posto di TCP<br>`-v`: verbose output<br>`-n`: non effettua risoluzioni o reverse lookup DNS (lavoro solo in modalità numerica)<br>`-U`: impiega una socket unix<br>`-s <ipaddress>`: forza l'indirizzo IP sorgente indicato (*solo client*, bisogna assicurarsi che ci sia coerenza con quello effettivo)<br>`-p <port>`: forza l'uso della porta indicata (*solo client*, se porta già in uso fallisce)<br>`-q <n>`: chiude la connessione dopo `<n>` dal momento in cui incontra un `EOF` (aka si interrompe `stdint`) |
 | `nc [-options] <hostname> <port>` | client: aprire una connessione verso un server (`<hostname>` a cui mi voglio collegare, `<port>` numero di porta) |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | `ss [-options] [query]`           | `socket statistics`                                                                                               | `-t`: mostra le connessioni TCP<br>`-u`: mostra le connessioni UDP<br>`-e`: mostra informazioni aggiuntive<br>`-l`: mostra le socket in stato `listen` (pronte ad accettare connessioni)<br>`-a`: mostra le socket in qualsiasi stato esse siano<br>`-n`: non effettua la risoluzione DNS degli indirizzi e delle porte "note"<br>`-p`: mostra il programma (PID ed eseguibile) associato alla connessione                                                                                                                                                                                                                                                                                                                                                                         |
+
+## DHCP
+
+| comando                    | funzione                         |
+| -------------------------- | -------------------------------- |
+| `systemctl enable dnsmasq` | avviare il server all'accensione |
+| `service dnsmasq start`    | lanciare il server               |
+
+## Traffic shaping
+
+| comando                                                                                                                                            | funzione                                                                    | opzioni                                                                                                                                                                                                    |
+| -------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `tc [-s] qdisc show dev <iface>`                                                                                                                   | visualizzare le regole qdisc dell'interfaccia                               | `-s`: mostra anche le statistiche                                                                                                                                                                          |
+| `tc {qdisc, class} add dev <iface> root [handle <handle>] <qdisc-type> <qdisc-options>`                                                            | impostare la root qdisc (`qdisc`) o classe (`class`)                        | `default <minor>`: indica di usare come default la disciplina che ha come *minor number* `<minor>`<br>`limit <limit>`: permette di accodare massimo `<limit>` pacchetti (per es. nelle discipline `pfifo`) |
+| `tc {qdisc, class} add dev <iface> parent <class-handle> [classid <class-id>] <qdisc-type> <qdisc-options>`                                        | aggiungere una qdisc (`qdisc`) o una classe (`class`) a un handle esistente |                                                                                                                                                                                                            |
+| `tc filter add dev <iface> protocol <proto> parent <qdisc-handle> <filter-type> match <proto-rule> flowid <class-handle>`                          | aggiungere un filtro (es. `<filter-type> = u32`)                            |                                                                                                                                                                                                            |
+| `tc filter show dev <iface>`                                                                                                                       | mostrare i filtri dell'interfaccia                                          |                                                                                                                                                                                                            |
+| `tc qdisc del dev <iface> root`                                                                                                                    | eliminare la root qdisc                                                     |                                                                                                                                                                                                            |
+| `tc qdisc del dev <iface> handle <handle>`                                                                                                         | eliminare la qdisc corrispondente ad un handle                              |                                                                                                                                                                                                            |
+| `tc {qdisc, class} add dev <iface> {root, parent <handle>} [classid <class-id>] tbf rate <rate> [ceil <max-rate>] burst <burst> latency <latency>` | configurare una qdisc di tipo tbf                                           |                                                                                                                                                                                                            |
 
 
 
@@ -54,6 +84,7 @@
 | `/etc/network/interfaces` | serve per configurare permanentemente le interfacce di rete del sistema                                                                                                                                                                           |
 | `/etc/sysctl.conf`        |                                                                                                                                                                                                                                                   |
 | `/etc/services`           | contiene le well-known ports                                                                                                                                                                                                                      |
+| `/etc/dnsmasq.conf`       | serve per configurare il server DHCP                                                                                                                                                                                                              |
 #### Esempio di configurazione dei file
 
 ##### Configurazione di una interfaccia Ethernet fisica
@@ -109,6 +140,33 @@ iface <interface>.<N> inet static
 192.168.1.1 h1
 192.168.1.2 h2
 ```
+
+##### Configurazione server DHCP
+
+```
+# file di configurazione /etc/dnsmasq.conf
+
+no-resolv
+read-ethers
+interface=eth0
+domain=reti.org
+dhcp-option=option:router,192.168.1.254
+dhcp-option=option:dns-server,192.168.1.254
+dhcp-range=192.168.1.10,192.168.1.20,1h
+dhcp-host=02:04:06:11:22:33,client3,192.168.1.3,1h
+address=/www.doubleclick.com/127.0.0.1
+```
+
+| elemento                                                 | significato                                                                                                                         |
+| -------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `no-resolv`                                              | non mi interessa specificare altri nameservers/non cercare altri nameservers                                                        |
+| `read-ethers`                                            | leggi il file `/etc/ethers`                                                                                                         |
+| `interface=<iface>`                                      | interfaccia su cui è in ascolto/interfaccia di rete per DHCP                                                                        |
+| `domain=<name>`                                          | specificare dominio implicito (aggiunto in coda se non scritto direttamente)                                                        |
+| `dhcp-option`                                            | aggiungere parametri di configurazione nella risposta                                                                               |
+| `dhcp-range=<min_IP>,<max_IP>,<lease_time>`              | range di indirizzi che posso assegnare dinamicamente + lease time                                                                   |
+| `dhcp-host=<mac_addr>,<hostname>,<ip_addr>,<lease_time>` | indico la configurazione statica per i nodi che la richiedono (in alternativa si possono usare i file `/etc/ethers`ed `/etc/hosts`) |
+| `address`                                                | sovrascrivo l'indirizzo (si può usare anche `/etc/hosts`)                                                                           |
 
 ## vde_switch
 
