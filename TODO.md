@@ -2,4 +2,4 @@
 - [ ] dhcp: lesson + workbook
 - [ ] traffic shaping: lesson + workbook
 - [ ] challenges
-- [ ] socket programming: lesson + workbook
+- [ ] socket programming: workbook
