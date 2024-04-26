@@ -1,5 +1,5 @@
 - [ ] routing: workbook
-- [ ] dhcp: lesson + workbook
+- [ ] dhcp: workbook
 - [ ] traffic shaping: lesson + workbook
 - [ ] challenges
 - [ ] socket programming: workbook
