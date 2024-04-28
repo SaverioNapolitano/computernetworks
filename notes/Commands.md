@@ -148,13 +148,13 @@ iface <interface>.<N> inet static
 
 no-resolv
 read-ethers
-interface=eth0
+interface=<iface>
 domain=reti.org
-dhcp-option=option:router,192.168.1.254
-dhcp-option=option:dns-server,192.168.1.254
-dhcp-range=192.168.1.10,192.168.1.20,1h
-dhcp-host=02:04:06:11:22:33,client3,192.168.1.3,1h
-address=/www.doubleclick.com/127.0.0.1
+dhcp-option=option:router,<ip_addr_router>
+dhcp-option=option:dns-server,<ip_addr_dns_server>
+dhcp-range=<min_IP>,<max_IP>,<lease_time>
+dhcp-host=<mac_addr>,<hostname>,<ip_addr>,<lease_time>
+address=/<site_name>/<ip_addr>
 ```
 
 | elemento                                                 | significato                                                                                                                         |
@@ -167,6 +167,29 @@ address=/www.doubleclick.com/127.0.0.1
 | `dhcp-range=<min_IP>,<max_IP>,<lease_time>`              | range di indirizzi che posso assegnare dinamicamente + lease time                                                                   |
 | `dhcp-host=<mac_addr>,<hostname>,<ip_addr>,<lease_time>` | indico la configurazione statica per i nodi che la richiedono (in alternativa si possono usare i file `/etc/ethers`ed `/etc/hosts`) |
 | `address`                                                | sovrascrivo l'indirizzo (si può usare anche `/etc/hosts`)                                                                           |
+| `dhcp-option=option:router,<ip_addr_router>`             | specifico il default gateway                                                                                                        |
+
+##### Configurazione interfaccia di rete DHCP
+
+###### MAC non noto
+
+```
+file di configurazione /etc/network/interfaces
+
+auto <interface>
+iface <interface> inet dhcp
+```
+
+###### MAC noto
+
+```
+file di configurazione /etc/network/interfaces
+
+auto <interface>
+iface <interface> inet dhcp
+	hwaddress ether <mac_address>
+```
+
 
 ## vde_switch
 
