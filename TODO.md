@@ -1,5 +1,5 @@
 - [ ] routing: 4_4-4_7 md
-- [ ] dhcp: workbook
-- [ ] traffic shaping: workbook
+- [ ] dhcp: md
+- [ ] traffic shaping: 6_1 md
 - [ ] challenges
 - [ ] socket programming: workbook
