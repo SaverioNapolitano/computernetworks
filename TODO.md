@@ -1,3 +1,2 @@
-- [ ] dhcp: md
 - [ ] challenges
 - [ ] socket programming: workbook
