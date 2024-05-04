@@ -1,4 +1,3 @@
-- [ ] routing: 4_6-4_7 md
 - [ ] dhcp: md
 - [ ] challenges
 - [ ] socket programming: workbook
