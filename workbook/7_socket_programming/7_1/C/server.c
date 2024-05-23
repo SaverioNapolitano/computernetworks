@@ -108,11 +108,8 @@ int main(int argc, char *argv[]){
         recupero hostname usando la funzione gethostname(buf, size)
         - buf: array di caratteri in cui sarà scritto l'hostname (char *)
         - size: dimensione del buffer (size = sizeof(buf))
-        server trasmette il messaggio di benvenuto
-
-        prendo una stringa dal client, la stampo su stdout e dopo mando un messaggio
-        eseguo la read sul socket descriptor ritornato dalla accept (leggo al massimo 255 caratteri, in questo modo ho la garanzia che ci sia sempre almeno un byte a 0 alla
-        fine del buffer)
+        server trasmette il messaggio di benvenuto al client
+        eseguo la write sul socket descriptor ritornato dalla accept
     */
 
     gethostname(buffer, sizeof(buffer));
