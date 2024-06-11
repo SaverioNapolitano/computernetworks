@@ -7,6 +7,7 @@
 | `/etc/sysctl.conf`        |                                                                                                                                                                                                                                                   |
 | `/etc/services`           | contiene le well-known ports                                                                                                                                                                                                                      |
 | `/etc/dnsmasq.conf`       | serve per configurare il server DHCP                                                                                                                                                                                                              |
+| `/etc/resolv.conf` | serve per configurare il DNS |
 ## Esempio di configurazione dei file
 
 ### Configurazione di una interfaccia Ethernet fisica
