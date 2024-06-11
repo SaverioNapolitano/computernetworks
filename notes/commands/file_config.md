@@ -10,6 +10,16 @@
 | `/etc/resolv.conf` | serve per configurare il DNS |
 ## Esempio di configurazione dei file
 
+### Configurazione DNS
+
+```
+# file di configurazione /etc/resolv.conf
+
+nameserver <iface_IP>
+```
+
+Dove `<iface_IP>` è l'indirizzo IP dell'interfaccia del DNS server con cui comunica l'host.
+
 ### Configurazione di una interfaccia Ethernet fisica
 
 ```
